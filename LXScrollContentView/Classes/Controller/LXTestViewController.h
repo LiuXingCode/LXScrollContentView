@@ -10,4 +10,6 @@
 
 @interface LXTestViewController : UIViewController
 
+@property (nonatomic, copy) NSString *category;
+
 @end

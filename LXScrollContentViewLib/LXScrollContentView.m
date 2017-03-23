@@ -18,8 +18,6 @@ static NSString *kContentCellID = @"kContentCellID";
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 
-@property (nonatomic, assign) NSInteger startIndex;
-
 @property (nonatomic, assign) BOOL isForbidScrollDelegate;
 
 @end
@@ -48,6 +46,7 @@ static NSString *kContentCellID = @"kContentCellID";
     self.flowLayout.minimumInteritemSpacing = 0;
     self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.flowLayout];
+    self.collectionView.scrollsToTop = NO;
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.pagingEnabled = YES;
@@ -95,7 +94,6 @@ static NSString *kContentCellID = @"kContentCellID";
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    self.startIndex = self.collectionView.contentOffset.x / self.collectionView.frame.size.width;
     self.isForbidScrollDelegate = NO;
 }
 
@@ -104,9 +102,6 @@ static NSString *kContentCellID = @"kContentCellID";
         return;
     }
     NSInteger endIndex = (self.collectionView.contentOffset.x + self.collectionView.frame.size.width / 2 )/ self.collectionView.frame.size.width;
-    if (endIndex == self.startIndex) {
-        return;
-    }
     if (self.scrollBlock) {
         self.scrollBlock(endIndex);
     }

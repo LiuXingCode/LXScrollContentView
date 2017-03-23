@@ -48,6 +48,7 @@
 
 - (void)setupUI{
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+    self.scrollView.scrollsToTop = NO;
     self.scrollView.scrollEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
@@ -66,7 +67,6 @@
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         if (i == self.selectedIndex) {
             btn.selected = YES;
-            [self setSelectedIndicator:NO];
         }
         btn.tag = 100 + i++;
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -100,6 +100,7 @@
     for (UIButton *btn in self.titleButtons) {
         btn.frame = CGRectMake(self.titleWidth * i++, 0, self.titleWidth, self.frame.size.height);
     }
+    [self setSelectedIndicator:NO];
     [self.scrollView bringSubviewToFront:self.selectionIndicator];
 }
 
@@ -143,10 +144,12 @@
 
 - (void)setTitleWidth:(CGFloat)titleWidth{
     _titleWidth = titleWidth;
+    [self setNeedsLayout];
 }
 
 - (void)setIndicatorHeight:(CGFloat)indicatorHeight{
     _indicatorHeight = indicatorHeight;
+    [self setNeedsLayout];
 }
 
 - (void)setTitleFont:(UIFont *)titleFont{
