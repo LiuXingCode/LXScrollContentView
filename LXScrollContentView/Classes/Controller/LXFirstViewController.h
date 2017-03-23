@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  LXFirstViewController.h
 //  LXScrollContentView
 //
 //  Created by 刘行 on 2017/3/23.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface LXFirstViewController : UIViewController
 
 @end
-

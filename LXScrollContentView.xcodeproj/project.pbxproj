@@ -9,12 +9,16 @@
 /* Begin PBXBuildFile section */
 		CAACE5771E83BB2800977C7E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5761E83BB2800977C7E /* main.m */; };
 		CAACE57A1E83BB2800977C7E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5791E83BB2800977C7E /* AppDelegate.m */; };
-		CAACE57D1E83BB2800977C7E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE57C1E83BB2800977C7E /* ViewController.m */; };
 		CAACE5801E83BB2800977C7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAACE57E1E83BB2800977C7E /* Main.storyboard */; };
 		CAACE5821E83BB2800977C7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAACE5811E83BB2800977C7E /* Assets.xcassets */; };
 		CAACE5851E83BB2800977C7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAACE5831E83BB2800977C7E /* LaunchScreen.storyboard */; };
 		CAACE5901E83BB2800977C7E /* LXScrollContentViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE58F1E83BB2800977C7E /* LXScrollContentViewTests.m */; };
 		CAACE59B1E83BB2800977C7E /* LXScrollContentViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE59A1E83BB2800977C7E /* LXScrollContentViewUITests.m */; };
+		CAACE5AC1E83BF9B00977C7E /* LXScrollContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5AB1E83BF9B00977C7E /* LXScrollContentView.m */; };
+		CAACE5AF1E83C02300977C7E /* LXScollTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5AE1E83C02300977C7E /* LXScollTitleView.m */; };
+		CAACE5B31E83C25300977C7E /* LXFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5B21E83C25300977C7E /* LXFirstViewController.m */; };
+		CAACE5B61E83C26600977C7E /* LXSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5B51E83C26600977C7E /* LXSecondViewController.m */; };
+		CAACE5B91E83DA3500977C7E /* LXTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5B81E83DA3500977C7E /* LXTestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +43,6 @@
 		CAACE5761E83BB2800977C7E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CAACE5781E83BB2800977C7E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CAACE5791E83BB2800977C7E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CAACE57B1E83BB2800977C7E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CAACE57C1E83BB2800977C7E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CAACE57F1E83BB2800977C7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CAACE5811E83BB2800977C7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CAACE5841E83BB2800977C7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +53,16 @@
 		CAACE5961E83BB2800977C7E /* LXScrollContentViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LXScrollContentViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAACE59A1E83BB2800977C7E /* LXScrollContentViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LXScrollContentViewUITests.m; sourceTree = "<group>"; };
 		CAACE59C1E83BB2800977C7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAACE5AA1E83BF9B00977C7E /* LXScrollContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXScrollContentView.h; sourceTree = "<group>"; };
+		CAACE5AB1E83BF9B00977C7E /* LXScrollContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXScrollContentView.m; sourceTree = "<group>"; };
+		CAACE5AD1E83C02300977C7E /* LXScollTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXScollTitleView.h; sourceTree = "<group>"; };
+		CAACE5AE1E83C02300977C7E /* LXScollTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXScollTitleView.m; sourceTree = "<group>"; };
+		CAACE5B11E83C25300977C7E /* LXFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXFirstViewController.h; sourceTree = "<group>"; };
+		CAACE5B21E83C25300977C7E /* LXFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXFirstViewController.m; sourceTree = "<group>"; };
+		CAACE5B41E83C26600977C7E /* LXSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXSecondViewController.h; sourceTree = "<group>"; };
+		CAACE5B51E83C26600977C7E /* LXSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXSecondViewController.m; sourceTree = "<group>"; };
+		CAACE5B71E83DA3500977C7E /* LXTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXTestViewController.h; sourceTree = "<group>"; };
+		CAACE5B81E83DA3500977C7E /* LXTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXTestViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +93,7 @@
 		CAACE5691E83BB2800977C7E = {
 			isa = PBXGroup;
 			children = (
+				CAACE5A91E83BF5600977C7E /* LXScrollContentViewLib */,
 				CAACE5741E83BB2800977C7E /* LXScrollContentView */,
 				CAACE58E1E83BB2800977C7E /* LXScrollContentViewTests */,
 				CAACE5991E83BB2800977C7E /* LXScrollContentViewUITests */,
@@ -101,10 +114,9 @@
 		CAACE5741E83BB2800977C7E /* LXScrollContentView */ = {
 			isa = PBXGroup;
 			children = (
+				CAACE5A81E83BDEE00977C7E /* Classes */,
 				CAACE5781E83BB2800977C7E /* AppDelegate.h */,
 				CAACE5791E83BB2800977C7E /* AppDelegate.m */,
-				CAACE57B1E83BB2800977C7E /* ViewController.h */,
-				CAACE57C1E83BB2800977C7E /* ViewController.m */,
 				CAACE57E1E83BB2800977C7E /* Main.storyboard */,
 				CAACE5811E83BB2800977C7E /* Assets.xcassets */,
 				CAACE5831E83BB2800977C7E /* LaunchScreen.storyboard */,
@@ -138,6 +150,38 @@
 				CAACE59C1E83BB2800977C7E /* Info.plist */,
 			);
 			path = LXScrollContentViewUITests;
+			sourceTree = "<group>";
+		};
+		CAACE5A81E83BDEE00977C7E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CAACE5B01E83C1EF00977C7E /* Controller */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		CAACE5A91E83BF5600977C7E /* LXScrollContentViewLib */ = {
+			isa = PBXGroup;
+			children = (
+				CAACE5AA1E83BF9B00977C7E /* LXScrollContentView.h */,
+				CAACE5AB1E83BF9B00977C7E /* LXScrollContentView.m */,
+				CAACE5AD1E83C02300977C7E /* LXScollTitleView.h */,
+				CAACE5AE1E83C02300977C7E /* LXScollTitleView.m */,
+			);
+			path = LXScrollContentViewLib;
+			sourceTree = "<group>";
+		};
+		CAACE5B01E83C1EF00977C7E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CAACE5B11E83C25300977C7E /* LXFirstViewController.h */,
+				CAACE5B21E83C25300977C7E /* LXFirstViewController.m */,
+				CAACE5B41E83C26600977C7E /* LXSecondViewController.h */,
+				CAACE5B51E83C26600977C7E /* LXSecondViewController.m */,
+				CAACE5B71E83DA3500977C7E /* LXTestViewController.h */,
+				CAACE5B81E83DA3500977C7E /* LXTestViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +246,7 @@
 		CAACE56A1E83BB2800977C7E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = LX;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "刘行";
 				TargetAttributes = {
@@ -276,8 +321,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAACE57D1E83BB2800977C7E /* ViewController.m in Sources */,
+				CAACE5B61E83C26600977C7E /* LXSecondViewController.m in Sources */,
+				CAACE5B91E83DA3500977C7E /* LXTestViewController.m in Sources */,
+				CAACE5AC1E83BF9B00977C7E /* LXScrollContentView.m in Sources */,
+				CAACE5B31E83C25300977C7E /* LXFirstViewController.m in Sources */,
 				CAACE57A1E83BB2800977C7E /* AppDelegate.m in Sources */,
+				CAACE5AF1E83C02300977C7E /* LXScollTitleView.m in Sources */,
 				CAACE5771E83BB2800977C7E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,6 +563,7 @@
 				CAACE5A11E83BB2800977C7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CAACE5A21E83BB2800977C7E /* Build configuration list for PBXNativeTarget "LXScrollContentViewTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +572,7 @@
 				CAACE5A41E83BB2800977C7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CAACE5A51E83BB2800977C7E /* Build configuration list for PBXNativeTarget "LXScrollContentViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +581,7 @@
 				CAACE5A71E83BB2800977C7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
