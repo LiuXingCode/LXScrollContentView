@@ -2,6 +2,8 @@
 
 一个类似网易新闻客户端左右滑动切换页面的框架
 
+github链接：https://github.com/LiuXingCode/LXScrollContentView
+
 简书链接：http://www.jianshu.com/p/4ca324102e10
 
 ## 1. LXScrollContentView描述
