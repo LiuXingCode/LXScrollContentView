@@ -153,6 +153,6 @@ pod 'LXScrollContentView'
 
 3.LXScrollContentView目前使用UICollectionView滑动，在性能方面已经比较优秀。接下来考虑加入cache功能，争取达到更加顺滑的效果。
 
-4.大家如果觉得本框架不错，希望你们可以Star一下，我会更有动力的去不断完善。
+4.大家如果觉得本框架不错，希望你们可以 **Star** 一下，我会更有动力的去不断完善。
 
-5.我的邮箱账号：**liuxinghenau@163.com**，简书地址：**http://www.jianshu.com/u/f367c6621844**，大家有问题可以随时联系。
+5.我的邮箱账号：**liuxinghenau@163.com** ，简书地址：**http://www.jianshu.com/u/f367c6621844** ，大家有问题可以随时联系。
