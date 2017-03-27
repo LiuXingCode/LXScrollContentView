@@ -46,6 +46,13 @@
     [self.view addSubview:self.contentView];
 }
 
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    self.titleView.frame = CGRectMake(0, 0, self.view.frame.size.width, 35);
+    self.contentView.frame = CGRectMake(0, 35, self.view.frame.size.width, self.view.frame.size.height - 35);
+}
+
 - (void)reloadData{
     NSArray *titles = @[@"首页",@"体育",@"科技",@"生活",@"本地",@"视频",@"娱乐",@"时尚",@"房地产",@"经济"];
     [self.titleView reloadViewWithTitles:titles];
@@ -57,12 +64,6 @@
         [vcs addObject:vc];
     }
     [self.contentView reloadViewWithChildVcs:vcs parentVC:self];
-}
-
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    self.titleView.frame = CGRectMake(0, 0, self.view.frame.size.width, 35);
-    self.contentView.frame = CGRectMake(0, 35, self.view.frame.size.width, self.view.frame.size.height - 35);
 }
 
 
