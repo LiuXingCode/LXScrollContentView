@@ -1,6 +1,6 @@
 # LXScrollContentView
 
-一个类似网易新闻客户端左右滑动切换页面的框架
+高仿网易新闻客户端左右滑动切换页面的框架
 
 github链接：https://github.com/LiuXingCode/LXScrollContentView
 
@@ -8,7 +8,7 @@ github链接：https://github.com/LiuXingCode/LXScrollContentView
 
 ## 1. LXScrollContentView描述
 
-这是一个类似于网易新闻客户端首页滑动切换页面的框架。支持点击上方标题，切换下方内容页面，也支持滑动下方内容区域，切换上方的标题。
+这是一个高仿网易新闻客户端首页滑动切换页面的框架。支持点击上方标题，切换下方内容页面，也支持滑动下方内容区域，切换上方的标题。
 
 ![点击上方标题下方页面切换](http://omwe26vh5.bkt.clouddn.com/17-3-27/70023878-file_1490598698656_8e31.gif)
 
