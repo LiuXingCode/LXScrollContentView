@@ -145,7 +145,7 @@ pod 'LXScrollContentView'
 }
 ```
 
-##4.期望
+## 4.期望
 
 1.这是 **LXScrollContentView** 框架发布的第一个版本，还有很多不完善的地方，欢迎大家提出bug。
 
