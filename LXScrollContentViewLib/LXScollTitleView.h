@@ -14,7 +14,7 @@
 
  @param index 选中第几个标题
  */
-typedef void(^BMPageTitleViewSelectedBlock)(NSInteger index);
+typedef void(^LXScollTitleViewSelectedBlock)(NSInteger index);
 
 @interface LXScollTitleView : UIView
 
@@ -55,7 +55,7 @@ typedef void(^BMPageTitleViewSelectedBlock)(NSInteger index);
 /**
  选中标题回调block
  */
-@property (nonatomic, copy) BMPageTitleViewSelectedBlock selectedBlock;
+@property (nonatomic, copy) LXScollTitleViewSelectedBlock selectedBlock;
 
 
 /**

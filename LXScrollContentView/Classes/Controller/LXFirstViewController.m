@@ -10,10 +10,11 @@
 #import "LXScollTitleView.h"
 #import "LXScrollContentView.h"
 #import "LXTestViewController.h"
+#import "LXSegmentTitleView.h"
 
-@interface LXFirstViewController ()
+@interface LXFirstViewController ()<LXSegmentTitleViewDelegate>
 
-@property (nonatomic, strong) LXScollTitleView *titleView;
+@property (nonatomic, strong) LXSegmentTitleView *titleView;
 
 @property (nonatomic, strong) LXScrollContentView *contentView;
 
@@ -28,14 +29,14 @@
 }
 
 - (void)setupUI{
-    self.titleView = [[LXScollTitleView alloc] initWithFrame:CGRectZero];
+    self.titleView = [[LXSegmentTitleView alloc] initWithFrame:CGRectZero];
+    self.titleView.delegate = self;
     __weak typeof(self) weakSelf = self;
-    self.titleView.selectedBlock = ^(NSInteger index){
-        __weak typeof(self) strongSelf = weakSelf;
-        strongSelf.contentView.currentIndex = index;
-    };
+//    self.titleView.selectedBlock = ^(NSInteger index){
+//        __weak typeof(self) strongSelf = weakSelf;
+//        strongSelf.contentView.currentIndex = index;
+//    };
     self.titleView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
-    self.titleView.titleWidth = 60.f;
     [self.view addSubview:self.titleView];
     
     self.contentView = [[LXScrollContentView alloc] initWithFrame:CGRectZero];
@@ -44,6 +45,10 @@
         strongSelf.titleView.selectedIndex = index;
     };
     [self.view addSubview:self.contentView];
+}
+
+- (void)segmentTitleView:(LXSegmentTitleView *)segmentView didSelectedIndex:(NSInteger)toIndex fromIndex:(NSInteger)fromIndex{
+    self.contentView.currentIndex = toIndex;
 }
 
 
@@ -55,8 +60,8 @@
 
 - (void)reloadData{
     NSArray *titles = @[@"首页",@"体育",@"科技",@"生活",@"本地",@"视频",@"娱乐",@"时尚",@"房地产",@"经济"];
-    [self.titleView reloadViewWithTitles:titles];
-    
+//    [self.titleView reloadViewWithTitles:titles];
+    self.titleView.segmentTitles = titles;
     NSMutableArray *vcs = [[NSMutableArray alloc] init];
     for (NSString *title in titles) {
         LXTestViewController *vc = [[LXTestViewController alloc] init];

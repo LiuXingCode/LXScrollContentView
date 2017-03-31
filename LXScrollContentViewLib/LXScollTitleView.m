@@ -104,7 +104,7 @@
     [self.scrollView bringSubviewToFront:self.selectionIndicator];
 }
 
-- (void)setSelectedIndicator:(BOOL)animated {
+- (void)setSelectedIndicator:(BOOL)animated{
     [UIView animateWithDuration:(animated? 0.02 : 0) delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.selectionIndicator.frame = CGRectMake(self.selectedIndex * self.titleWidth, self.frame.size.height - self.indicatorHeight, self.titleWidth, self.indicatorHeight);
     } completion:^(BOOL finished) {
