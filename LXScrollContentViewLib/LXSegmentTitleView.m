@@ -12,7 +12,7 @@
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 
-@property (nonatomic, weak) NSMutableArray *itemButtons;
+@property (nonatomic, strong) NSMutableArray<UIButton *> *itemButtons;
 
 @property (nonatomic, weak) UIView *indicatorView;
 
@@ -39,8 +39,9 @@
     self.titleFont = [UIFont systemFontOfSize:14.f];
     self.indicatorColor = [UIColor redColor];
     self.indicatorHeight = 2.f;
-    self.indicatorExtraW = 2.f;
-    self.itemMinMargin = 20.f;
+    self.indicatorExtraW = 5.f;
+    self.indicatorBottomMargin = 0;
+    self.itemMinMargin = 25.f;
 }
 
 - (void)layoutSubviews{
@@ -64,7 +65,7 @@
     for (UIButton *btn in self.itemButtons) {
         [btn sizeToFit];
         btn.frame = CGRectMake(lastX, 0, btn.frame.size.width, self.scrollView.frame.size.height);
-        lastX += btn.frame.origin.x + itemMarginW;
+        lastX += btn.frame.size.width + itemMarginW;
     }
     self.scrollView.contentSize = CGSizeMake(lastX, self.scrollView.frame.size.height);
     [self setSelectedIndicatorFrame:NO];
@@ -73,7 +74,7 @@
 - (void)setSelectedIndicatorFrame:(BOOL)animated{
     UIButton *selectedBtn = self.itemButtons[self.selectedIndex];
     [UIView animateWithDuration:(animated? 0.02 : 0) delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        self.indicatorView.frame = CGRectMake(selectedBtn.frame.origin.x - self.indicatorExtraW, self.scrollView.frame.size.height - self.indicatorHeight, selectedBtn.frame.size.width + 2 * self.indicatorExtraW, self.indicatorHeight);
+        self.indicatorView.frame = CGRectMake(selectedBtn.frame.origin.x - self.indicatorExtraW, self.scrollView.frame.size.height - self.indicatorHeight - self.indicatorBottomMargin, selectedBtn.frame.size.width + 2 * self.indicatorExtraW, self.indicatorHeight);
     } completion:^(BOOL finished) {
         [self scrollRectToVisibleCenterAnimated:animated];
     }];
@@ -108,17 +109,17 @@
     return _indicatorView;
 }
 
-- (NSMutableArray *)itemButtons{
+- (NSMutableArray<UIButton *> *)itemButtons{
     if (!_itemButtons) {
-        NSMutableArray *itemButtons = [[NSMutableArray alloc] init];
-        _itemButtons = itemButtons;
+        _itemButtons = [[NSMutableArray alloc] init];
     }
     return _itemButtons;
 }
 
+
 #pragma mark - setter
 
-- (void)setSegmentTitles:(NSArray *)segmentTitles{
+- (void)setSegmentTitles:(NSArray<NSString *> *)segmentTitles{
     [self.itemButtons makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.itemButtons = nil;
     for (NSString *title in segmentTitles) {
@@ -130,6 +131,7 @@
         [btn setTitle:title forState:UIControlStateNormal];
         [btn setTitleColor:self.titleNormalColor forState:UIControlStateNormal];
         [btn setTitleColor:self.titleSelectedColor forState:UIControlStateSelected];
+        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         btn.titleLabel.font = self.titleFont;
         [self.scrollView addSubview:btn];
         [self.itemButtons addObject:btn];
@@ -137,6 +139,7 @@
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
+
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex{
     if (_selectedIndex == selectedIndex || selectedIndex < 0 || selectedIndex > self.itemButtons.count - 1) {
@@ -196,6 +199,11 @@
     [self layoutIfNeeded];
 }
 
+- (void)setIndicatorBottomMargin:(NSInteger)indicatorBottomMargin{
+    _indicatorBottomMargin = indicatorBottomMargin;
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
 
 #pragma mark - EventResponse
 - (void)btnClick:(UIButton *)btn{

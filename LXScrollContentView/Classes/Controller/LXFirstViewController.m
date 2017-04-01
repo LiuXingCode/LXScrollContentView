@@ -12,7 +12,7 @@
 #import "LXTestViewController.h"
 #import "LXSegmentTitleView.h"
 
-@interface LXFirstViewController ()<LXSegmentTitleViewDelegate>
+@interface LXFirstViewController ()<LXSegmentTitleViewDelegate,LXScrollContentViewDelegate>
 
 @property (nonatomic, strong) LXSegmentTitleView *titleView;
 
@@ -31,7 +31,7 @@
 - (void)setupUI{
     self.titleView = [[LXSegmentTitleView alloc] initWithFrame:CGRectZero];
     self.titleView.delegate = self;
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
 //    self.titleView.selectedBlock = ^(NSInteger index){
 //        __weak typeof(self) strongSelf = weakSelf;
 //        strongSelf.contentView.currentIndex = index;
@@ -40,10 +40,11 @@
     [self.view addSubview:self.titleView];
     
     self.contentView = [[LXScrollContentView alloc] initWithFrame:CGRectZero];
-    self.contentView.scrollBlock = ^(NSInteger index){
-        __weak typeof(self) strongSelf = weakSelf;
-        strongSelf.titleView.selectedIndex = index;
-    };
+    self.contentView.delegate = self;
+//    self.contentView.scrollBlock = ^(NSInteger index){
+//        __weak typeof(self) strongSelf = weakSelf;
+//        strongSelf.titleView.selectedIndex = index;
+//    };
     [self.view addSubview:self.contentView];
 }
 
@@ -51,6 +52,10 @@
     self.contentView.currentIndex = toIndex;
 }
 
+- (void)scrollContentView:(LXScrollContentView *)contentView fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex progress:(float)progress{
+    self.titleView.selectedIndex = toIndex;
+    NSLog(@"fromIndex--%zd toIndex--%zd progress-%f",fromIndex,toIndex,progress);
+}
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
@@ -59,7 +64,8 @@
 }
 
 - (void)reloadData{
-    NSArray *titles = @[@"首页",@"体育",@"科技",@"生活",@"本地",@"视频",@"娱乐",@"时尚",@"房地产",@"经济"];
+//    NSArray *titles = @[@"首页",@"体育",@"科技"];
+    NSArray *titles = @[@"首页",@"体育在线",@"科技日报",@"生活",@"本地",@"精彩视频",@"娱乐",@"时尚",@"房地产",@"经济"];
 //    [self.titleView reloadViewWithTitles:titles];
     self.titleView.segmentTitles = titles;
     NSMutableArray *vcs = [[NSMutableArray alloc] init];
