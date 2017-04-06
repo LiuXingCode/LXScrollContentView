@@ -142,6 +142,15 @@ static NSString *kContentCellID = @"kContentCellID";
     }
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    CGFloat endOffsetX = scrollView.contentOffset.x;
+    NSInteger startIndex = floor(_startOffsetX / scrollView.frame.size.width);
+    NSInteger endIndex = floor(endOffsetX / scrollView.frame.size.width);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(contentViewDidEndDecelerating:startIndex:endIndex:)]) {
+        [self.delegate contentViewDidEndDecelerating:self startIndex:startIndex endIndex:endIndex];
+    }
+}
+
 - (void)reloadViewWithChildVcs:(NSArray *)childVcs parentVC:(UIViewController *)parentVC{
     self.parentVC = parentVC;
     [self.childVcs makeObjectsPerformSelector:@selector(removeFromParentViewController)];

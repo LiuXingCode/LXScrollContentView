@@ -211,8 +211,8 @@
     if (btnIndex == self.selectedIndex) {
         return;
     }
-    if (self.delegate && [self.delegate respondsToSelector:@selector(segmentTitleView:didSelectedIndex:fromIndex:)]) {
-        [self.delegate segmentTitleView:self didSelectedIndex:btnIndex fromIndex:self.selectedIndex];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(segmentTitleView:selectedIndex:lastSelectedIndex:)]) {
+        [self.delegate segmentTitleView:self selectedIndex:btnIndex lastSelectedIndex:self.selectedIndex];
     }
     self.selectedIndex = btnIndex;
 }

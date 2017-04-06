@@ -12,7 +12,11 @@
 
 @protocol LXScrollContentViewDelegate <NSObject>
 
+@optional
+
 - (void)contentViewDidScroll:(LXScrollContentView *)contentView fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex progress:(float)progress;
+
+- (void)contentViewDidEndDecelerating:(LXScrollContentView *)contentView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex;
 
 @end
 

@@ -7,7 +7,6 @@
 //
 
 #import "LXFirstViewController.h"
-#import "LXScollTitleView.h"
 #import "LXScrollContentView.h"
 #import "LXTestViewController.h"
 #import "LXSegmentTitleView.h"
@@ -30,31 +29,26 @@
 
 - (void)setupUI{
     self.titleView = [[LXSegmentTitleView alloc] initWithFrame:CGRectZero];
+    self.titleView.itemMinMargin = 15.f;
     self.titleView.delegate = self;
-//    __weak typeof(self) weakSelf = self;
-//    self.titleView.selectedBlock = ^(NSInteger index){
-//        __weak typeof(self) strongSelf = weakSelf;
-//        strongSelf.contentView.currentIndex = index;
-//    };
     self.titleView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
     [self.view addSubview:self.titleView];
     
     self.contentView = [[LXScrollContentView alloc] initWithFrame:CGRectZero];
     self.contentView.delegate = self;
-//    self.contentView.scrollBlock = ^(NSInteger index){
-//        __weak typeof(self) strongSelf = weakSelf;
-//        strongSelf.titleView.selectedIndex = index;
-//    };
     [self.view addSubview:self.contentView];
 }
 
-- (void)segmentTitleView:(LXSegmentTitleView *)segmentView didSelectedIndex:(NSInteger)toIndex fromIndex:(NSInteger)fromIndex{
-    self.contentView.currentIndex = toIndex;
+- (void)segmentTitleView:(LXSegmentTitleView *)segmentView selectedIndex:(NSInteger)selectedIndex lastSelectedIndex:(NSInteger)lastSelectedIndex{
+    self.contentView.currentIndex = selectedIndex;
 }
 
-- (void)scrollContentView:(LXScrollContentView *)contentView fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex progress:(float)progress{
-    self.titleView.selectedIndex = toIndex;
-    NSLog(@"fromIndex--%zd toIndex--%zd progress-%f",fromIndex,toIndex,progress);
+- (void)contentViewDidScroll:(LXScrollContentView *)contentView fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex progress:(float)progress{
+
+}
+
+- (void)contentViewDidEndDecelerating:(LXScrollContentView *)contentView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex{
+    self.titleView.selectedIndex = endIndex;
 }
 
 - (void)viewDidLayoutSubviews{
@@ -64,9 +58,7 @@
 }
 
 - (void)reloadData{
-//    NSArray *titles = @[@"首页",@"体育",@"科技"];
     NSArray *titles = @[@"首页",@"体育在线",@"科技日报",@"生活",@"本地",@"精彩视频",@"娱乐",@"时尚",@"房地产",@"经济"];
-//    [self.titleView reloadViewWithTitles:titles];
     self.titleView.segmentTitles = titles;
     NSMutableArray *vcs = [[NSMutableArray alloc] init];
     for (NSString *title in titles) {

@@ -16,7 +16,6 @@
 		CAACE5901E83BB2800977C7E /* LXScrollContentViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE58F1E83BB2800977C7E /* LXScrollContentViewTests.m */; };
 		CAACE59B1E83BB2800977C7E /* LXScrollContentViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE59A1E83BB2800977C7E /* LXScrollContentViewUITests.m */; };
 		CAACE5AC1E83BF9B00977C7E /* LXScrollContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5AB1E83BF9B00977C7E /* LXScrollContentView.m */; };
-		CAACE5AF1E83C02300977C7E /* LXScollTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5AE1E83C02300977C7E /* LXScollTitleView.m */; };
 		CAACE5B31E83C25300977C7E /* LXFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5B21E83C25300977C7E /* LXFirstViewController.m */; };
 		CAACE5B61E83C26600977C7E /* LXSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5B51E83C26600977C7E /* LXSecondViewController.m */; };
 		CAACE5B91E83DA3500977C7E /* LXTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACE5B81E83DA3500977C7E /* LXTestViewController.m */; };
@@ -58,8 +57,6 @@
 		CAACE59C1E83BB2800977C7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CAACE5AA1E83BF9B00977C7E /* LXScrollContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXScrollContentView.h; sourceTree = "<group>"; };
 		CAACE5AB1E83BF9B00977C7E /* LXScrollContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXScrollContentView.m; sourceTree = "<group>"; };
-		CAACE5AD1E83C02300977C7E /* LXScollTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXScollTitleView.h; sourceTree = "<group>"; };
-		CAACE5AE1E83C02300977C7E /* LXScollTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXScollTitleView.m; sourceTree = "<group>"; };
 		CAACE5B11E83C25300977C7E /* LXFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXFirstViewController.h; sourceTree = "<group>"; };
 		CAACE5B21E83C25300977C7E /* LXFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXFirstViewController.m; sourceTree = "<group>"; };
 		CAACE5B41E83C26600977C7E /* LXSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXSecondViewController.h; sourceTree = "<group>"; };
@@ -168,8 +165,6 @@
 			children = (
 				CAACE5AA1E83BF9B00977C7E /* LXScrollContentView.h */,
 				CAACE5AB1E83BF9B00977C7E /* LXScrollContentView.m */,
-				CAACE5AD1E83C02300977C7E /* LXScollTitleView.h */,
-				CAACE5AE1E83C02300977C7E /* LXScollTitleView.m */,
 				CA4689821E8E17E700692721 /* LXSegmentTitleView.h */,
 				CA4689831E8E17E700692721 /* LXSegmentTitleView.m */,
 			);
@@ -332,7 +327,6 @@
 				CA4689841E8E17E700692721 /* LXSegmentTitleView.m in Sources */,
 				CAACE5B31E83C25300977C7E /* LXFirstViewController.m in Sources */,
 				CAACE57A1E83BB2800977C7E /* AppDelegate.m in Sources */,
-				CAACE5AF1E83C02300977C7E /* LXScollTitleView.m in Sources */,
 				CAACE5771E83BB2800977C7E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

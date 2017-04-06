@@ -12,7 +12,9 @@
 
 @protocol LXSegmentTitleViewDelegate <NSObject>
 
-- (void)segmentTitleView:(LXSegmentTitleView *)segmentView didSelectedIndex:(NSInteger)toIndex fromIndex:(NSInteger)fromIndex;
+@optional
+
+- (void)segmentTitleView:(LXSegmentTitleView *)segmentView selectedIndex:(NSInteger)selectedIndex lastSelectedIndex:(NSInteger)lastSelectedIndex;
 
 @end
 
