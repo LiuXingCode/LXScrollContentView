@@ -131,7 +131,7 @@ static NSString *kContentCellID = @"kContentCellID";
         progress = 0;
         toIndex = fromIndex;
     } else {
-        progress = (endOffsetX - _startOffsetX) / scrollView.frame.size.width;
+        progress = (_startOffsetX - endOffsetX) / scrollView.frame.size.width;
         toIndex = fromIndex - 1;
         if (toIndex < 0) {
             toIndex = 0;
