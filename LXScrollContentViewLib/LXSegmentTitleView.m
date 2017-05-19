@@ -142,7 +142,7 @@
 
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex{
-    if (_selectedIndex == selectedIndex || selectedIndex < 0 || selectedIndex > self.itemButtons.count - 1) {
+    if (_selectedIndex == selectedIndex || selectedIndex < 0 || selectedIndex > self.itemButtons.count - 1 || self.itemButtons.count <= 0) {
         return;
     }
     UIButton *btn = [self.scrollView viewWithTag:_selectedIndex + 888];

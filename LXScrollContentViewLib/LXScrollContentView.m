@@ -160,12 +160,14 @@ static NSString *kContentCellID = @"kContentCellID";
 }
 
 - (void)setCurrentIndex:(NSInteger)currentIndex{
-    if (_currentIndex < 0 || _currentIndex > self.childVcs.count - 1) {
+    if (_currentIndex == currentIndex || _currentIndex < 0 || _currentIndex > self.childVcs.count - 1 || self.childVcs.count <= 0) {
         return;
     }
     _currentIndex = currentIndex;
     self.isForbidScrollDelegate = YES;
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    });
 }
 
 @end

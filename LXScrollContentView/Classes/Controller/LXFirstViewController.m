@@ -67,6 +67,8 @@
         [vcs addObject:vc];
     }
     [self.contentView reloadViewWithChildVcs:vcs parentVC:self];
+    self.titleView.selectedIndex = 2;
+    self.contentView.currentIndex = 2;
 }
 
 
