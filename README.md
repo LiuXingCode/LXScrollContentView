@@ -159,3 +159,6 @@ pod 'LXScrollContentView'
 4.大家如果觉得本框架不错，希望你们可以 **Star** 一下，我会更有动力的去不断完善。
 
 5.我的邮箱账号：**liuxinghenau@163.com** ，简书地址：**http://www.jianshu.com/u/f367c6621844** ，大家有问题可以随时联系。
+
+## 5.使用问题
+最近好多同学使用此框架发现设置正确的frame，但控件在屏幕位置显示并不正确。这是因为iOS系统导航栏透明对滚动视图的影响，可以在 **viewDidLoad** 里面设置写上 **self.automaticallyAdjustsScrollViewInsets = NO** 解决此问题
