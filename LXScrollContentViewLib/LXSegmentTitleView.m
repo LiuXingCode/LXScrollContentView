@@ -187,19 +187,19 @@
     [self layoutIfNeeded];
 }
 
-- (void)setIndicatorExtraW:(NSInteger)indicatorExtraW{
+- (void)setIndicatorExtraW:(CGFloat)indicatorExtraW{
     _indicatorExtraW = indicatorExtraW;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
-- (void)setItemMinMargin:(NSInteger)itemMinMargin{
+- (void)setItemMinMargin:(CGFloat)itemMinMargin{
     _itemMinMargin = itemMinMargin;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
-- (void)setIndicatorBottomMargin:(NSInteger)indicatorBottomMargin{
+- (void)setIndicatorBottomMargin:(CGFloat)indicatorBottomMargin{
     _indicatorBottomMargin = indicatorBottomMargin;
     [self setNeedsLayout];
     [self layoutIfNeeded];
