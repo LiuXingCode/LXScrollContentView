@@ -59,18 +59,18 @@
 /**
  下方指示条延伸宽度，默认5.f
  */
-@property (nonatomic, assign) NSInteger indicatorExtraW;
+@property (nonatomic, assign) CGFloat indicatorExtraW;
 
 
 /**
  下方指示条距离底部距离，默认为0
  */
-@property (nonatomic, assign) NSInteger indicatorBottomMargin;
+@property (nonatomic, assign) CGFloat indicatorBottomMargin;
 
 /**
  每个item之间最小间隔，默认25.f
  */
-@property (nonatomic, assign) NSInteger itemMinMargin;
+@property (nonatomic, assign) CGFloat itemMinMargin;
 
 /**
  选项卡标题数组
