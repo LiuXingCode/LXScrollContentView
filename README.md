@@ -6,6 +6,8 @@ github链接：https://github.com/LiuXingCode/LXScrollContentView
 
 简书链接：http://www.jianshu.com/p/4ca324102e10
 
+swift版本链接：https://github.com/LiuXingCode/LXScollContentViewSwift
+
 ## 1. LXScrollContentView描述
 
 这是一个高仿网易新闻客户端首页滑动切换页面的框架。支持点击上方标题，切换下方内容页面，也支持滑动下方内容区域，切换上方的标题。
