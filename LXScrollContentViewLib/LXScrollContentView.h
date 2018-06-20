@@ -37,4 +37,6 @@
  */
 @property (nonatomic, assign) NSInteger currentIndex;
 
+@property (nonatomic, weak) UICollectionView *collectionView;
+
 @end

@@ -17,8 +17,6 @@ static NSString *kContentCellID = @"kContentCellID";
 
 @property (nonatomic, strong) NSMutableArray<UIViewController *> *childVcs;
 
-@property (nonatomic, weak) UICollectionView *collectionView;
-
 @property (nonatomic, assign) BOOL isForbidScrollDelegate;
 
 @property (nonatomic, strong) UIViewController *parentVC;
