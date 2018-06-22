@@ -252,7 +252,7 @@
 				TargetAttributes = {
 					CAACE5711E83BB2800977C7E = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = RQB4AJCS2L;
+						DevelopmentTeam = 3Q3RPTVKGQ;
 						ProvisioningStyle = Automatic;
 					};
 					CAACE58A1E83BB2800977C7E = {
@@ -474,9 +474,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = RQB4AJCS2L;
+				DEVELOPMENT_TEAM = 3Q3RPTVKGQ;
 				INFOPLIST_FILE = LXScrollContentView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-steec-extra-opts=-xse,-sub=30";
 				PRODUCT_BUNDLE_IDENTIFIER = snsports.LXScrollContentView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -486,9 +487,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = RQB4AJCS2L;
+				DEVELOPMENT_TEAM = 3Q3RPTVKGQ;
 				INFOPLIST_FILE = LXScrollContentView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-steec-extra-opts=-xse,-sub=30";
 				PRODUCT_BUNDLE_IDENTIFIER = snsports.LXScrollContentView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

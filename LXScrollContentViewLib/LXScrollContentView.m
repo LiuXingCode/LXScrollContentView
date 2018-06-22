@@ -68,6 +68,11 @@ static NSString *kContentCellID = @"kContentCellID";
         collectionView.delegate = self;
         collectionView.dataSource = self;
         [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kContentCellID];
+        
+        if (@available(iOS 11.0, *)) {
+            collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
+        
         [self addSubview:collectionView];
         _collectionView = collectionView;
     }
@@ -107,11 +112,17 @@ static NSString *kContentCellID = @"kContentCellID";
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if (scrollView != self.collectionView) {
+        return;
+    }
     self.isForbidScrollDelegate = NO;
     _startOffsetX = scrollView.contentOffset.x;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView != self.collectionView) {
+        return;
+    }
     if (self.isForbidScrollDelegate) {
         return;
     }
@@ -141,6 +152,9 @@ static NSString *kContentCellID = @"kContentCellID";
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (scrollView != self.collectionView) {
+        return;
+    }
     CGFloat endOffsetX = scrollView.contentOffset.x;
     NSInteger startIndex = floor(_startOffsetX / scrollView.frame.size.width);
     NSInteger endIndex = floor(endOffsetX / scrollView.frame.size.width);
