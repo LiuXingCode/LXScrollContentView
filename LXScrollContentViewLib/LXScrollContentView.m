@@ -172,7 +172,7 @@ static NSString *kContentCellID = @"kContentCellID";
 }
 
 - (void)setCurrentIndex:(NSInteger)currentIndex{
-    if (_currentIndex == currentIndex || _currentIndex < 0 || _currentIndex > self.childVcs.count - 1 || self.childVcs.count <= 0) {
+    if (currentIndex < 0 || currentIndex > self.childVcs.count - 1 || self.childVcs.count <= 0) {
         return;
     }
     _currentIndex = currentIndex;
