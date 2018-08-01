@@ -19,7 +19,7 @@ static NSString *kContentCellID = @"kContentCellID";
 
 @property (nonatomic, assign) BOOL isForbidScrollDelegate;
 
-@property (nonatomic, strong) UIViewController *parentVC;
+@property (nonatomic, weak) UIViewController *parentVC;
 
 @end
 

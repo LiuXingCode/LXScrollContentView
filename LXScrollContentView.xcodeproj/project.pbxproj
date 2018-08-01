@@ -477,7 +477,7 @@
 				DEVELOPMENT_TEAM = 3Q3RPTVKGQ;
 				INFOPLIST_FILE = LXScrollContentView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-steec-extra-opts=-xse,-sub=30";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = snsports.LXScrollContentView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -490,7 +490,7 @@
 				DEVELOPMENT_TEAM = 3Q3RPTVKGQ;
 				INFOPLIST_FILE = LXScrollContentView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-steec-extra-opts=-xse,-sub=30";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = snsports.LXScrollContentView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
