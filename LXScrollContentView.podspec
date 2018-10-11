@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
     s.name         = 'LXScrollContentView'
-    s.version      = '1.6'
+    s.version      = '1.6.1'
     s.summary      = 'A similar to the NetEase news home left and right to switch the scroll frame'
     s.homepage     = 'https://github.com/LiuXingCode/LXScrollContentView'
     s.license      = 'MIT'
