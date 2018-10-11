@@ -120,6 +120,7 @@
 #pragma mark - setter
 
 - (void)setSegmentTitles:(NSArray<NSString *> *)segmentTitles{
+    _segmentTitles = [segmentTitles copy];
     [self.itemButtons makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.itemButtons = nil;
     for (NSString *title in segmentTitles) {

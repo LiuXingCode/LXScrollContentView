@@ -75,6 +75,6 @@
 /**
  选项卡标题数组
  */
-@property (nonatomic, strong) NSArray<NSString *> *segmentTitles;
+@property (nonatomic, copy) NSArray<NSString *> *segmentTitles;
 
 @end
