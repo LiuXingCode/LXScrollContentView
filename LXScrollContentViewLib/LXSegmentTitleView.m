@@ -20,19 +20,19 @@
 
 @implementation LXSegmentTitleView
 
-- (void)awakeFromNib{
+- (void)awakeFromNib {
     [super awakeFromNib];
     [self initData];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initData];
     }
     return self;
 }
 
-- (void)initData{
+- (void)initData {
     self.titleNormalColor = [UIColor blackColor];
     self.titleSelectedColor = [UIColor redColor];
     self.selectedIndex = 0;
@@ -44,7 +44,7 @@
     self.itemMinMargin = 25.f;
 }
 
-- (void)layoutSubviews{
+- (void)layoutSubviews {
     [super layoutSubviews];
     self.scrollView.frame = self.bounds;
     if (self.itemButtons.count == 0) {
@@ -71,7 +71,7 @@
     [self setSelectedIndicatorFrame:NO];
 }
 
-- (void)setSelectedIndicatorFrame:(BOOL)animated{
+- (void)setSelectedIndicatorFrame:(BOOL)animated {
     UIButton *selectedBtn = self.itemButtons[self.selectedIndex];
     [UIView animateWithDuration:(animated? 0.02 : 0) delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.indicatorView.frame = CGRectMake(selectedBtn.frame.origin.x - self.indicatorExtraW, self.scrollView.frame.size.height - self.indicatorHeight - self.indicatorBottomMargin, selectedBtn.frame.size.width + 2 * self.indicatorExtraW, self.indicatorHeight);
@@ -86,9 +86,10 @@
     [self.scrollView scrollRectToVisible:centeredRect animated:animated];
 }
 
+
 #pragma mark - getter
 
-- (UIScrollView *)scrollView{
+- (UIScrollView *)scrollView {
     if (!_scrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         scrollView.scrollsToTop = NO;
@@ -100,7 +101,7 @@
     return _scrollView;
 }
 
-- (UIView *)indicatorView{
+- (UIView *)indicatorView {
     if (!_indicatorView) {
         UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectZero];
         [self.scrollView addSubview:indicatorView];
@@ -109,7 +110,7 @@
     return _indicatorView;
 }
 
-- (NSMutableArray<UIButton *> *)itemButtons{
+- (NSMutableArray<UIButton *> *)itemButtons {
     if (!_itemButtons) {
         _itemButtons = [[NSMutableArray alloc] init];
     }
@@ -119,7 +120,7 @@
 
 #pragma mark - setter
 
-- (void)setSegmentTitles:(NSArray<NSString *> *)segmentTitles{
+- (void)setSegmentTitles:(NSArray<NSString *> *)segmentTitles {
     _segmentTitles = [segmentTitles copy];
     [self.itemButtons makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.itemButtons = nil;
@@ -142,8 +143,11 @@
 }
 
 
-- (void)setSelectedIndex:(NSInteger)selectedIndex{
-    if (_selectedIndex == selectedIndex || selectedIndex < 0 || selectedIndex > self.itemButtons.count - 1 || self.itemButtons.count <= 0) {
+- (void)setSelectedIndex:(NSInteger)selectedIndex {
+    if (_selectedIndex == selectedIndex
+        || selectedIndex < 0
+        || selectedIndex > self.itemButtons.count - 1
+        || self.itemButtons.count <= 0) {
         return;
     }
     UIButton *btn = [self.scrollView viewWithTag:_selectedIndex + 888];
@@ -154,21 +158,21 @@
     [self setSelectedIndicatorFrame:YES];
 }
 
-- (void)setTitleNormalColor:(UIColor *)titleNormalColor{
+- (void)setTitleNormalColor:(UIColor *)titleNormalColor {
     _titleNormalColor = titleNormalColor;
     for (UIButton *btn in self.itemButtons) {
         [btn setTitleColor:titleNormalColor forState:UIControlStateNormal];
     }
 }
 
-- (void)setTitleSelectedColor:(UIColor *)titleSelectedColor{
+- (void)setTitleSelectedColor:(UIColor *)titleSelectedColor {
     _titleSelectedColor = titleSelectedColor;
     for (UIButton *btn in self.itemButtons) {
         [btn setTitleColor:titleSelectedColor forState:UIControlStateSelected];
     }
 }
 
-- (void)setTitleFont:(UIFont *)titleFont{
+- (void)setTitleFont:(UIFont *)titleFont {
     _titleFont = titleFont;
     for (UIButton *btn in self.itemButtons) {
         btn.titleLabel.font = titleFont;
@@ -177,37 +181,39 @@
     [self layoutIfNeeded];
 }
 
-- (void)setIndicatorColor:(UIColor *)indicatorColor{
+- (void)setIndicatorColor:(UIColor *)indicatorColor {
     _indicatorColor = indicatorColor;
     self.indicatorView.backgroundColor = indicatorColor;
 }
 
-- (void)setIndicatorHeight:(CGFloat)indicatorHeight{
+- (void)setIndicatorHeight:(CGFloat)indicatorHeight {
     _indicatorHeight = indicatorHeight;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
-- (void)setIndicatorExtraW:(CGFloat)indicatorExtraW{
+- (void)setIndicatorExtraW:(CGFloat)indicatorExtraW {
     _indicatorExtraW = indicatorExtraW;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
-- (void)setItemMinMargin:(CGFloat)itemMinMargin{
+- (void)setItemMinMargin:(CGFloat)itemMinMargin {
     _itemMinMargin = itemMinMargin;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
-- (void)setIndicatorBottomMargin:(CGFloat)indicatorBottomMargin{
+- (void)setIndicatorBottomMargin:(CGFloat)indicatorBottomMargin {
     _indicatorBottomMargin = indicatorBottomMargin;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
+
 #pragma mark - EventResponse
-- (void)btnClick:(UIButton *)btn{
+
+- (void)btnClick:(UIButton *)btn {
     NSInteger btnIndex = btn.tag - 888;
     if (btnIndex == self.selectedIndex) {
         return;

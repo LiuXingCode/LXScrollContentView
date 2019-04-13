@@ -21,7 +21,7 @@ swift版本链接：https://github.com/LiuXingCode/LXScollContentViewSwift
 
 LXScrollContentView支持CocoaPods安装
 
-```
+```obj-c
 pod 'LXScrollContentView'
 ```
 
@@ -29,11 +29,11 @@ pod 'LXScrollContentView'
 
 ## 3.API使用说明
 
-本框架有 **LXScollTitleView** 和 **LXScrollContentView** 两个类，它们完全独立，可以根据项目需求选择使用。
+本框架有 **LXSegmentTitleView** 和 **LXScrollContentView** 两个类，它们完全独立，可以根据项目需求选择使用。
 
-**LXScollTitleView**表示上方标题区域，它的具体使用方法如下：
+**LXSegmentTitleView**表示上方标题区域，它的具体使用方法如下：
 
-```
+```obj-c
 /**
  文字未选中颜色，默认black
  */
@@ -83,7 +83,7 @@ pod 'LXScrollContentView'
 
 **LXScrollContentView** 表示下方滚动内容区域，它的具体使用方法如下：
 
-```
+```obj-c
 /**
  设置当前滚动到第几个页面，默认为0
  */
@@ -107,39 +107,32 @@ pod 'LXScrollContentView'
 
 以下是一个在ViewController中具体使用案例
 
-```
-//初始化UI
-- (void)setupUI{
-    self.titleView = [[LXScollTitleView alloc] initWithFrame:CGRectZero];
-    __weak typeof(self) weakSelf = self;
-    self.titleView.selectedBlock = ^(NSInteger index){
-        __weak typeof(self) strongSelf = weakSelf;
-        strongSelf.contentView.currentIndex = index;
-    };
+```obj-c
+// 初始化UI
+- (void)setupUI {
+    self.titleView = [[LXSegmentTitleView alloc] initWithFrame:CGRectZero];
+    self.titleView.itemMinMargin = 15.f;
+    self.titleView.delegate = self;
     self.titleView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
-    self.titleView.titleWidth = 60.f;
     [self.view addSubview:self.titleView];
     
     self.contentView = [[LXScrollContentView alloc] initWithFrame:CGRectZero];
-    self.contentView.scrollBlock = ^(NSInteger index){
-        __weak typeof(self) strongSelf = weakSelf;
-        strongSelf.titleView.selectedIndex = index;
-    };
+    self.contentView.delegate = self;
     [self.view addSubview:self.contentView];
 }
 
-//调整titleView和contentView的frame
-- (void)viewDidLayoutSubviews{
+// 调整titleView和contentView的frame
+- (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    
     self.titleView.frame = CGRectMake(0, 0, self.view.frame.size.width, 35);
     self.contentView.frame = CGRectMake(0, 35, self.view.frame.size.width, self.view.frame.size.height - 35);
 }
 
-//刷新titleView和contentView的数据源，根据项目需求自行选择数据源
-- (void)reloadData{
-    NSArray *titles = @[@"首页",@"体育",@"科技",@"生活",@"本地",@"视频",@"娱乐",@"时尚",@"房地产",@"经济"];
-    [self.titleView reloadViewWithTitles:titles];
-    
+// 刷新titleView和contentView的数据源，根据项目需求自行选择数据源
+- (void)reloadData {
+    NSArray *titles = @[@"首页", @"体育在线", @"科技日报", @"生活", @"本地", @"精彩视频", @"娱乐", @"时尚", @"房地产", @"经济"];
+    self.titleView.segmentTitles = titles;
     NSMutableArray *vcs = [[NSMutableArray alloc] init];
     for (NSString *title in titles) {
         LXTestViewController *vc = [[LXTestViewController alloc] init];
@@ -147,6 +140,8 @@ pod 'LXScrollContentView'
         [vcs addObject:vc];
     }
     [self.contentView reloadViewWithChildVcs:vcs parentVC:self];
+    self.titleView.selectedIndex = 2;
+    self.contentView.currentIndex = 2;
 }
 ```
 

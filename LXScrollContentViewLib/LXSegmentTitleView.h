@@ -14,7 +14,9 @@
 
 @optional
 
-- (void)segmentTitleView:(LXSegmentTitleView *)segmentView selectedIndex:(NSInteger)selectedIndex lastSelectedIndex:(NSInteger)lastSelectedIndex;
+- (void)segmentTitleView:(LXSegmentTitleView *)segmentView
+           selectedIndex:(NSInteger)selectedIndex
+       lastSelectedIndex:(NSInteger)lastSelectedIndex;
 
 @end
 

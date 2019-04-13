@@ -10,7 +10,7 @@
 
 static NSString *kContentCellID = @"kContentCellID";
 
-@interface LXScrollContentView()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface LXScrollContentView()<UICollectionViewDelegate, UICollectionViewDataSource>
 {
     CGFloat _startOffsetX;
 }
@@ -25,12 +25,12 @@ static NSString *kContentCellID = @"kContentCellID";
 
 @implementation LXScrollContentView
 
-- (void)awakeFromNib{
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = [UIColor whiteColor];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
     }
@@ -44,16 +44,17 @@ static NSString *kContentCellID = @"kContentCellID";
     flowLayout.itemSize = self.bounds.size;
 }
 
+
 #pragma mark - lazy
 
-- (NSMutableArray<UIViewController *> *)childVcs{
+- (NSMutableArray<UIViewController *> *)childVcs {
     if (!_childVcs) {
         _childVcs = [[NSMutableArray alloc] init];
     }
     return _childVcs;
 }
 
-- (UICollectionView *)collectionView{
+- (UICollectionView *)collectionView {
     if (!_collectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.minimumLineSpacing = 0;
@@ -79,20 +80,29 @@ static NSString *kContentCellID = @"kContentCellID";
     return _collectionView;
 }
 
+
 #pragma mark - UICollectionViewDataSource
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section
+{
     return self.childVcs.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kContentCellID forIndexPath:indexPath];
     return cell;
 }
 
+
 #pragma mark - UICollectionViewDelegate
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+- (void)collectionView:(UICollectionView *)collectionView
+       willDisplayCell:(UICollectionViewCell *)cell
+    forItemAtIndexPath:(NSIndexPath *)indexPath
+{
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UIViewController *childVc = self.childVcs[indexPath.row];
     [self.parentVC addChildViewController:childVc];
@@ -100,8 +110,10 @@ static NSString *kContentCellID = @"kContentCellID";
     [cell.contentView addSubview:childVc.view];
 }
 
-
-- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+- (void)collectionView:(UICollectionView *)collectionView
+  didEndDisplayingCell:(UICollectionViewCell *)cell
+    forItemAtIndexPath:(NSIndexPath *)indexPath
+{
     UIViewController *childVc = self.childVcs[indexPath.row];
     if (childVc.parentViewController) {
         [childVc removeFromParentViewController];
@@ -111,7 +123,7 @@ static NSString *kContentCellID = @"kContentCellID";
     }
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (scrollView != self.collectionView) {
         return;
     }
@@ -119,7 +131,7 @@ static NSString *kContentCellID = @"kContentCellID";
     _startOffsetX = scrollView.contentOffset.x;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView != self.collectionView) {
         return;
     }
@@ -151,7 +163,7 @@ static NSString *kContentCellID = @"kContentCellID";
     }
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView != self.collectionView) {
         return;
     }
@@ -163,7 +175,9 @@ static NSString *kContentCellID = @"kContentCellID";
     }
 }
 
-- (void)reloadViewWithChildVcs:(NSArray *)childVcs parentVC:(UIViewController *)parentVC{
+- (void)reloadViewWithChildVcs:(NSArray *)childVcs
+                      parentVC:(UIViewController *)parentVC
+{
     self.parentVC = parentVC;
     [self.childVcs makeObjectsPerformSelector:@selector(removeFromParentViewController)];
     self.childVcs = nil;
@@ -171,14 +185,19 @@ static NSString *kContentCellID = @"kContentCellID";
     [self.collectionView reloadData];
 }
 
-- (void)setCurrentIndex:(NSInteger)currentIndex{
-    if (currentIndex < 0 || currentIndex > self.childVcs.count - 1 || self.childVcs.count <= 0) {
+- (void)setCurrentIndex:(NSInteger)currentIndex {
+    if (currentIndex < 0
+        || currentIndex > self.childVcs.count - 1
+        || self.childVcs.count <= 0) {
         return;
     }
     _currentIndex = currentIndex;
     self.isForbidScrollDelegate = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        NSIndexPath *currentIndexPath = [NSIndexPath indexPathForRow:currentIndex inSection:0];
+        [self.collectionView scrollToItemAtIndexPath:currentIndexPath
+                                    atScrollPosition:UICollectionViewScrollPositionNone
+                                            animated:NO];
     });
 }
 

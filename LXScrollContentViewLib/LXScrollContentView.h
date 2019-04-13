@@ -14,9 +14,14 @@
 
 @optional
 
-- (void)contentViewDidScroll:(LXScrollContentView *)contentView fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex progress:(float)progress;
+- (void)contentViewDidScroll:(LXScrollContentView *)contentView
+                   fromIndex:(NSInteger)fromIndex
+                     toIndex:(NSInteger)toIndex
+                    progress:(float)progress;
 
-- (void)contentViewDidEndDecelerating:(LXScrollContentView *)contentView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex;
+- (void)contentViewDidEndDecelerating:(LXScrollContentView *)contentView
+                           startIndex:(NSInteger)startIndex
+                             endIndex:(NSInteger)endIndex;
 
 @end
 
@@ -28,7 +33,8 @@
  @param childVcs 当前View需要装入的控制器集合
  @param parentVC 当前View所在的父控制器
  */
-- (void)reloadViewWithChildVcs:(NSArray<UIViewController *> *)childVcs parentVC:(UIViewController *)parentVC;
+- (void)reloadViewWithChildVcs:(NSArray<UIViewController *> *)childVcs
+                      parentVC:(UIViewController *)parentVC;
 
 @property (nonatomic, weak) id<LXScrollContentViewDelegate> delegate;
 
