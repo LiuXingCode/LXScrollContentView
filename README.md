@@ -21,7 +21,7 @@ swift版本链接：https://github.com/LiuXingCode/LXScollContentViewSwift
 
 LXScrollContentView支持CocoaPods安装
 
-```
+```obj-c
 pod 'LXScrollContentView'
 ```
 
@@ -33,7 +33,7 @@ pod 'LXScrollContentView'
 
 **LXSegmentTitleView**表示上方标题区域，它的具体使用方法如下：
 
-```
+```obj-c
 /**
  文字未选中颜色，默认black
  */
@@ -83,7 +83,7 @@ pod 'LXScrollContentView'
 
 **LXScrollContentView** 表示下方滚动内容区域，它的具体使用方法如下：
 
-```
+```obj-c
 /**
  设置当前滚动到第几个页面，默认为0
  */
