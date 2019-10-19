@@ -10,6 +10,14 @@
 
 @class LXScrollContentView;
 
+@protocol LXScrollContentViewDataSource <NSObject>
+
+- (NSArray<UIViewController *> *)childVcsInScrollContentView:(LXScrollContentView *)scrollContentView;
+
+- (UIViewController *)parentVcInScrollContentView:(LXScrollContentView *)scrollContentView;
+
+@end
+
 @protocol LXScrollContentViewDelegate <NSObject>
 
 @optional
@@ -34,13 +42,14 @@
  @param parentVC 当前View所在的父控制器
  */
 - (void)reloadViewWithChildVcs:(NSArray<UIViewController *> *)childVcs
-                      parentVC:(UIViewController *)parentVC;
+                      parentVC:(UIViewController *)parentVC __deprecated_msg("使用dataSource方式获取");
+
+- (void)reloadData;
+
+@property (nonatomic, weak) id<LXScrollContentViewDataSource> dataSource;
 
 @property (nonatomic, weak) id<LXScrollContentViewDelegate> delegate;
 
-/**
- 设置当前滚动到第几个页面，默认为第0页
- */
 @property (nonatomic, assign) NSInteger currentIndex;
 
 @property (nonatomic, weak) UICollectionView *collectionView;

@@ -86,6 +86,15 @@
     [self.scrollView scrollRectToVisible:centeredRect animated:animated];
 }
 
+#pragma mark - public
+
+- (void)reloadData {
+    
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(segmentTitlesOfSegmentTitleView:)]) {
+        NSArray *segmentTitles = [self.dataSource segmentTitlesOfSegmentTitleView:self];
+        self.segmentTitles = segmentTitles;
+    }
+}
 
 #pragma mark - getter
 
@@ -120,7 +129,8 @@
 
 #pragma mark - setter
 
-- (void)setSegmentTitles:(NSArray<NSString *> *)segmentTitles {
+- (void)setSegmentTitles:(NSArray<NSString *> *)segmentTitles
+{
     _segmentTitles = [segmentTitles copy];
     [self.itemButtons makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.itemButtons = nil;

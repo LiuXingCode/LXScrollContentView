@@ -11,11 +11,15 @@
 #import "LXTestViewController.h"
 #import "LXSegmentTitleView.h"
 
-@interface LXFirstViewController () <LXSegmentTitleViewDelegate, LXScrollContentViewDelegate>
+@interface LXFirstViewController () <LXSegmentTitleViewDelegate, LXSegmentTitleViewDataSource, LXScrollContentViewDelegate, LXScrollContentViewDataSource>
 
 @property (nonatomic, strong) LXSegmentTitleView *titleView;
 
 @property (nonatomic, strong) LXScrollContentView *contentView;
+
+@property(strong, nonatomic) NSArray *titles;
+
+@property(strong, nonatomic) NSMutableArray *vcs;
 
 @end
 
@@ -28,7 +32,7 @@
     [super viewDidLoad];
     
     [self setupUI];
-    [self reloadData];
+    [self setupData];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -45,31 +49,40 @@
     self.titleView = [[LXSegmentTitleView alloc] initWithFrame:CGRectZero];
     self.titleView.itemMinMargin = 15.f;
     self.titleView.delegate = self;
+    self.titleView.dataSource = self;
     self.titleView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
     [self.view addSubview:self.titleView];
     
     self.contentView = [[LXScrollContentView alloc] initWithFrame:CGRectZero];
     self.contentView.delegate = self;
+    self.contentView.dataSource = self;
     [self.view addSubview:self.contentView];
 }
 
 
 #pragma mark - Event
 
-- (void)reloadData {
-    NSArray *titles = @[@"首页", @"体育在线", @"科技日报", @"生活", @"本地", @"精彩视频", @"娱乐", @"时尚", @"房地产", @"经济"];
-    self.titleView.segmentTitles = titles;
-    NSMutableArray *vcs = [[NSMutableArray alloc] init];
-    for (NSString *title in titles) {
+- (void)setupData {
+    self.titles = @[@"首页", @"体育在线", @"科技日报", @"生活", @"本地", @"精彩视频", @"娱乐", @"时尚", @"房地产", @"经济"];
+
+    for (NSString *title in self.titles) {
         LXTestViewController *vc = [[LXTestViewController alloc] init];
         vc.category = title;
-        [vcs addObject:vc];
+        [self.vcs addObject:vc];
     }
-    [self.contentView reloadViewWithChildVcs:vcs parentVC:self];
     self.titleView.selectedIndex = 2;
     self.contentView.currentIndex = 2;
+    
+    [self.titleView reloadData];
+    [self.contentView reloadData];
 }
 
+- (NSMutableArray *)vcs {
+    if (_vcs == nil) {
+        _vcs = [NSMutableArray array];
+    }
+    return _vcs;
+}
 
 #pragma mark - LXSegmentTitleViewDelegate
 
@@ -78,6 +91,12 @@
        lastSelectedIndex:(NSInteger)lastSelectedIndex
 {
     self.contentView.currentIndex = selectedIndex;
+}
+
+#pragma mark - LXSegmentTitleViewDataSource
+
+- (NSArray *)segmentTitlesOfSegmentTitleView:(LXSegmentTitleView *)segmentView {
+    return self.titles;
 }
 
 
@@ -96,6 +115,16 @@
                              endIndex:(NSInteger)endIndex
 {
     self.titleView.selectedIndex = endIndex;
+}
+
+#pragma mark - LXScrollContentViewDataSource
+
+- (UIViewController *)parentVcInScrollContentView:(LXScrollContentView *)scrollContentView {
+    return self;
+}
+
+- (NSArray<UIViewController *> *)childVcsInScrollContentView:(LXScrollContentView *)scrollContentView {
+    return self.vcs;
 }
 
 @end

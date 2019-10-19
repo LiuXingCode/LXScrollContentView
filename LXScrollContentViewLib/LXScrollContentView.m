@@ -44,8 +44,7 @@ static NSString *kContentCellID = @"kContentCellID";
     flowLayout.itemSize = self.bounds.size;
 }
 
-
-#pragma mark - lazy
+#pragma mark - lazy init
 
 - (NSMutableArray<UIViewController *> *)childVcs {
     if (!_childVcs) {
@@ -84,14 +83,12 @@ static NSString *kContentCellID = @"kContentCellID";
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section
-{
+     numberOfItemsInSection:(NSInteger)section {
     return self.childVcs.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kContentCellID forIndexPath:indexPath];
     return cell;
 }
@@ -101,8 +98,8 @@ static NSString *kContentCellID = @"kContentCellID";
 
 - (void)collectionView:(UICollectionView *)collectionView
        willDisplayCell:(UICollectionViewCell *)cell
-    forItemAtIndexPath:(NSIndexPath *)indexPath
-{
+    forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UIViewController *childVc = self.childVcs[indexPath.row];
     [self.parentVC addChildViewController:childVc];
@@ -112,8 +109,8 @@ static NSString *kContentCellID = @"kContentCellID";
 
 - (void)collectionView:(UICollectionView *)collectionView
   didEndDisplayingCell:(UICollectionViewCell *)cell
-    forItemAtIndexPath:(NSIndexPath *)indexPath
-{
+    forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     UIViewController *childVc = self.childVcs[indexPath.row];
     if (childVc.parentViewController) {
         [childVc removeFromParentViewController];
@@ -124,6 +121,7 @@ static NSString *kContentCellID = @"kContentCellID";
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
     if (scrollView != self.collectionView) {
         return;
     }
@@ -132,6 +130,7 @@ static NSString *kContentCellID = @"kContentCellID";
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
     if (scrollView != self.collectionView) {
         return;
     }
@@ -164,6 +163,7 @@ static NSString *kContentCellID = @"kContentCellID";
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
     if (scrollView != self.collectionView) {
         return;
     }
@@ -175,9 +175,25 @@ static NSString *kContentCellID = @"kContentCellID";
     }
 }
 
+#pragma mark - public
+- (void)reloadData {
+    
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(parentVcInScrollContentView:)]) {
+        self.parentVC = [self.dataSource parentVcInScrollContentView:self];
+    }
+    
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(childVcsInScrollContentView:)]) {
+        NSArray *childVcs = [self.dataSource childVcsInScrollContentView:self];
+        [self.childVcs makeObjectsPerformSelector:@selector(removeFromParentViewController)];
+        self.childVcs = nil;
+        [self.childVcs addObjectsFromArray:childVcs];
+    }
+    [self.collectionView reloadData];
+}
+
 - (void)reloadViewWithChildVcs:(NSArray *)childVcs
-                      parentVC:(UIViewController *)parentVC
-{
+                      parentVC:(UIViewController *)parentVC {
+    
     self.parentVC = parentVC;
     [self.childVcs makeObjectsPerformSelector:@selector(removeFromParentViewController)];
     self.childVcs = nil;
@@ -186,6 +202,7 @@ static NSString *kContentCellID = @"kContentCellID";
 }
 
 - (void)setCurrentIndex:(NSInteger)currentIndex {
+    
     if (currentIndex < 0
         || currentIndex > self.childVcs.count - 1
         || self.childVcs.count <= 0) {
