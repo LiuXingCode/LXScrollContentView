@@ -12,7 +12,11 @@
 
 @protocol LXScrollContentViewDataSource <NSObject>
 
-- (NSArray<UIViewController *> *)childVcsInScrollContentView:(LXScrollContentView *)scrollContentView;
+@required
+
+- (NSInteger)numberOfchildVcsInScrollContentView:(LXScrollContentView *)scrollContentView;
+
+- (UIViewController *)scrollContentView:(LXScrollContentView *)scrollContentView childVcAtIndex:(NSInteger)index;
 
 - (UIViewController *)parentVcInScrollContentView:(LXScrollContentView *)scrollContentView;
 
@@ -35,15 +39,6 @@
 
 @interface LXScrollContentView : UIView
 
-/**
- 加载滚动视图的界面
- 
- @param childVcs 当前View需要装入的控制器集合
- @param parentVC 当前View所在的父控制器
- */
-- (void)reloadViewWithChildVcs:(NSArray<UIViewController *> *)childVcs
-                      parentVC:(UIViewController *)parentVC __deprecated_msg("使用dataSource方式获取");
-
 - (void)reloadData;
 
 @property (nonatomic, weak) id<LXScrollContentViewDataSource> dataSource;
@@ -52,6 +47,6 @@
 
 @property (nonatomic, assign) NSInteger currentIndex;
 
-@property (nonatomic, weak) UICollectionView *collectionView;
+@property (nonatomic, weak, readonly) UICollectionView *collectionView;
 
 @end

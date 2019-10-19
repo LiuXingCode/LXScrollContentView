@@ -15,11 +15,15 @@ static NSString *kContentCellID = @"kContentCellID";
     CGFloat _startOffsetX;
 }
 
-@property (nonatomic, strong) NSMutableArray<UIViewController *> *childVcs;
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, UIViewController *> *childVcDicts;
+
+@property (nonatomic, assign) NSInteger childVcsCount;
 
 @property (nonatomic, assign) BOOL isForbidScrollDelegate;
 
 @property (nonatomic, weak) UIViewController *parentVC;
+
+@property (nonatomic, weak, readwrite) UICollectionView *collectionView;
 
 @end
 
@@ -46,11 +50,11 @@ static NSString *kContentCellID = @"kContentCellID";
 
 #pragma mark - lazy init
 
-- (NSMutableArray<UIViewController *> *)childVcs {
-    if (!_childVcs) {
-        _childVcs = [[NSMutableArray alloc] init];
+- (NSMutableDictionary<NSNumber *, UIViewController *> *)childVcDicts {
+    if (!_childVcDicts) {
+        _childVcDicts = [[NSMutableDictionary alloc] init];
     }
-    return _childVcs;
+    return _childVcDicts;
 }
 
 - (UICollectionView *)collectionView {
@@ -84,7 +88,7 @@ static NSString *kContentCellID = @"kContentCellID";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section {
-    return self.childVcs.count;
+    return self.childVcsCount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -101,7 +105,14 @@ static NSString *kContentCellID = @"kContentCellID";
     forItemAtIndexPath:(NSIndexPath *)indexPath {
     
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    UIViewController *childVc = self.childVcs[indexPath.row];
+    NSInteger index = indexPath.row;
+    UIViewController *childVc = self.childVcDicts[@(index)];
+    if (!childVc) {
+        if (self.dataSource && [self.dataSource respondsToSelector:@selector(scrollContentView:childVcAtIndex:)]) {
+            childVc = [self.dataSource scrollContentView:self childVcAtIndex:index];
+            self.childVcDicts[@(index)] = childVc;
+        }
+    }
     [self.parentVC addChildViewController:childVc];
     childVc.view.frame = cell.contentView.bounds;
     [cell.contentView addSubview:childVc.view];
@@ -111,7 +122,11 @@ static NSString *kContentCellID = @"kContentCellID";
   didEndDisplayingCell:(UICollectionViewCell *)cell
     forItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UIViewController *childVc = self.childVcs[indexPath.row];
+    NSInteger index = indexPath.row;
+    UIViewController *childVc = self.childVcDicts[@(index)];
+    if (!childVc) {
+        return;
+    }
     if (childVc.parentViewController) {
         [childVc removeFromParentViewController];
     }
@@ -144,8 +159,8 @@ static NSString *kContentCellID = @"kContentCellID";
     if (_startOffsetX < endOffsetX) {//左滑
         progress = (endOffsetX - _startOffsetX) / scrollView.frame.size.width;
         toIndex = fromIndex + 1;
-        if (toIndex > self.childVcs.count - 1) {
-            toIndex = self.childVcs.count - 1;
+        if (toIndex > self.childVcsCount - 1) {
+            toIndex = self.childVcsCount - 1;
         }
     } else if (_startOffsetX == endOffsetX){
         progress = 0;
@@ -178,34 +193,27 @@ static NSString *kContentCellID = @"kContentCellID";
 #pragma mark - public
 - (void)reloadData {
     
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(numberOfchildVcsInScrollContentView:)]) {
+        self.childVcsCount = [self.dataSource numberOfchildVcsInScrollContentView:self];
+    }
+    
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(parentVcInScrollContentView:)]) {
         self.parentVC = [self.dataSource parentVcInScrollContentView:self];
     }
     
-    if (self.dataSource && [self.dataSource respondsToSelector:@selector(childVcsInScrollContentView:)]) {
-        NSArray *childVcs = [self.dataSource childVcsInScrollContentView:self];
-        [self.childVcs makeObjectsPerformSelector:@selector(removeFromParentViewController)];
-        self.childVcs = nil;
-        [self.childVcs addObjectsFromArray:childVcs];
-    }
+    NSArray<UIViewController *> *childVcs = self.childVcDicts.allValues;
+    [childVcs makeObjectsPerformSelector:@selector(removeFromParentViewController)];
+    [self.childVcDicts removeAllObjects];
+    
     [self.collectionView reloadData];
 }
 
-- (void)reloadViewWithChildVcs:(NSArray *)childVcs
-                      parentVC:(UIViewController *)parentVC {
-    
-    self.parentVC = parentVC;
-    [self.childVcs makeObjectsPerformSelector:@selector(removeFromParentViewController)];
-    self.childVcs = nil;
-    [self.childVcs addObjectsFromArray:childVcs];
-    [self.collectionView reloadData];
-}
 
 - (void)setCurrentIndex:(NSInteger)currentIndex {
     
     if (currentIndex < 0
-        || currentIndex > self.childVcs.count - 1
-        || self.childVcs.count <= 0) {
+        || currentIndex > self.childVcsCount - 1
+        || self.childVcsCount <= 0) {
         return;
     }
     _currentIndex = currentIndex;

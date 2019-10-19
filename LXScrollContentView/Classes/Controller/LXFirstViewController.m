@@ -19,8 +19,6 @@
 
 @property(strong, nonatomic) NSArray *titles;
 
-@property(strong, nonatomic) NSMutableArray *vcs;
-
 @end
 
 #pragma mark -
@@ -65,23 +63,11 @@
 - (void)setupData {
     self.titles = @[@"首页", @"体育在线", @"科技日报", @"生活", @"本地", @"精彩视频", @"娱乐", @"时尚", @"房地产", @"经济"];
 
-    for (NSString *title in self.titles) {
-        LXTestViewController *vc = [[LXTestViewController alloc] init];
-        vc.category = title;
-        [self.vcs addObject:vc];
-    }
     self.titleView.selectedIndex = 2;
     self.contentView.currentIndex = 2;
     
     [self.titleView reloadData];
     [self.contentView reloadData];
-}
-
-- (NSMutableArray *)vcs {
-    if (_vcs == nil) {
-        _vcs = [NSMutableArray array];
-    }
-    return _vcs;
 }
 
 #pragma mark - LXSegmentTitleViewDelegate
@@ -123,8 +109,17 @@
     return self;
 }
 
-- (NSArray<UIViewController *> *)childVcsInScrollContentView:(LXScrollContentView *)scrollContentView {
-    return self.vcs;
+- (UIViewController *)scrollContentView:(LXScrollContentView *)scrollContentView childVcAtIndex:(NSInteger)index {
+    
+    NSString *title = self.titles[index];
+    LXTestViewController *vc = [[LXTestViewController alloc] init];
+    vc.category = title;
+    return vc;
+}
+
+- (NSInteger)numberOfchildVcsInScrollContentView:(LXScrollContentView *)scrollContentView {
+    
+    return self.titles.count;
 }
 
 @end
