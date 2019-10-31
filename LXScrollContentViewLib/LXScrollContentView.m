@@ -31,7 +31,7 @@ static NSString *kContentCellID = @"kContentCellID";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor clearColor];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -65,7 +65,7 @@ static NSString *kContentCellID = @"kContentCellID";
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
         collectionView.scrollsToTop = NO;
-        collectionView.backgroundColor = [UIColor whiteColor];
+        collectionView.backgroundColor = [UIColor clearColor];
         collectionView.showsHorizontalScrollIndicator = NO;
         collectionView.pagingEnabled = YES;
         collectionView.bounces = NO;
@@ -94,6 +94,8 @@ static NSString *kContentCellID = @"kContentCellID";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kContentCellID forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
