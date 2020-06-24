@@ -36,7 +36,8 @@
     self.titleNormalColor = [UIColor blackColor];
     self.titleSelectedColor = [UIColor redColor];
     self.selectedIndex = 0;
-    self.titleFont = [UIFont systemFontOfSize:14.f];
+    self.titleNormalFont = [UIFont systemFontOfSize:14.f];
+    self.titleSelectedFont = [UIFont systemFontOfSize:16.f];
     self.indicatorColor = [UIColor redColor];
     self.indicatorHeight = 2.f;
     self.indicatorExtraW = 5.f;
@@ -144,7 +145,7 @@
         [btn setTitleColor:self.titleNormalColor forState:UIControlStateNormal];
         [btn setTitleColor:self.titleSelectedColor forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        btn.titleLabel.font = self.titleFont;
+        btn.titleLabel.font = btn.selected ? self.titleSelectedFont : self.titleNormalFont;
         [self.scrollView addSubview:btn];
         [self.itemButtons addObject:btn];
     }
@@ -162,9 +163,17 @@
     }
     UIButton *btn = [self.scrollView viewWithTag:_selectedIndex + 888];
     btn.selected = NO;
+    btn.titleLabel.font = self.titleNormalFont;
     _selectedIndex = selectedIndex;
     UIButton *selectedBtn = [self.scrollView viewWithTag:_selectedIndex + 888];
     selectedBtn.selected = YES;
+    selectedBtn.titleLabel.font = self.titleSelectedFont;
+
+    CGRect frame = selectedBtn.frame;
+    NSString *title = self.segmentTitles[_selectedIndex];
+    frame.size.width = [title sizeWithAttributes:@{NSFontAttributeName: self.titleSelectedFont}].width;
+    selectedBtn.frame = frame;
+
     [self setSelectedIndicatorFrame:YES];
 }
 
@@ -182,10 +191,10 @@
     }
 }
 
-- (void)setTitleFont:(UIFont *)titleFont {
-    _titleFont = titleFont;
+- (void)setTitleNormalFont:(UIFont *)titleNormalFont {
+    _titleNormalFont = titleNormalFont;
     for (UIButton *btn in self.itemButtons) {
-        btn.titleLabel.font = titleFont;
+        btn.titleLabel.font = titleNormalFont;
     }
     [self setNeedsLayout];
     [self layoutIfNeeded];
