@@ -54,9 +54,15 @@
 
 
 /**
- 标题font，默认[UIFont systemFontOfSize:14.f]
+ 标题未选中font，默认[UIFont systemFontOfSize:14.f]
  */
-@property (nonatomic, strong) UIFont *titleFont;
+@property (nonatomic, strong) UIFont *titleNormalFont;
+
+
+/**
+ 标题选中font，默认[UIFont systemFontOfSize:16.f]
+ */
+@property (nonatomic, strong) UIFont *titleSelectedFont;
 
 
 /**
