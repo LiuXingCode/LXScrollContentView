@@ -20,9 +20,21 @@
 
 @end
 
+@protocol LXSegmentTitleViewDataSource <NSObject>
+
+@optional
+
+- (NSArray *)segmentTitlesOfSegmentTitleView:(LXSegmentTitleView *)segmentView;
+
+@end
+
 @interface LXSegmentTitleView : UIView
 
+- (void)reloadData;
+
 @property (nonatomic, weak) id<LXSegmentTitleViewDelegate> delegate;
+
+@property (nonatomic, weak) id<LXSegmentTitleViewDataSource> dataSource;
 
 /**
  文字未选中颜色，默认black

@@ -11,11 +11,13 @@
 #import "LXTestViewController.h"
 #import "LXSegmentTitleView.h"
 
-@interface LXFirstViewController () <LXSegmentTitleViewDelegate, LXScrollContentViewDelegate>
+@interface LXFirstViewController () <LXSegmentTitleViewDelegate, LXSegmentTitleViewDataSource, LXScrollContentViewDelegate, LXScrollContentViewDataSource>
 
 @property (nonatomic, strong) LXSegmentTitleView *titleView;
 
 @property (nonatomic, strong) LXScrollContentView *contentView;
+
+@property(strong, nonatomic) NSArray *titles;
 
 @end
 
@@ -28,7 +30,7 @@
     [super viewDidLoad];
     
     [self setupUI];
-    [self reloadData];
+    [self setupData];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -45,31 +47,28 @@
     self.titleView = [[LXSegmentTitleView alloc] initWithFrame:CGRectZero];
     self.titleView.itemMinMargin = 15.f;
     self.titleView.delegate = self;
+    self.titleView.dataSource = self;
     self.titleView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
     [self.view addSubview:self.titleView];
     
     self.contentView = [[LXScrollContentView alloc] initWithFrame:CGRectZero];
     self.contentView.delegate = self;
+    self.contentView.dataSource = self;
     [self.view addSubview:self.contentView];
 }
 
 
 #pragma mark - Event
 
-- (void)reloadData {
-    NSArray *titles = @[@"首页", @"体育在线", @"科技日报", @"生活", @"本地", @"精彩视频", @"娱乐", @"时尚", @"房地产", @"经济"];
-    self.titleView.segmentTitles = titles;
-    NSMutableArray *vcs = [[NSMutableArray alloc] init];
-    for (NSString *title in titles) {
-        LXTestViewController *vc = [[LXTestViewController alloc] init];
-        vc.category = title;
-        [vcs addObject:vc];
-    }
-    [self.contentView reloadViewWithChildVcs:vcs parentVC:self];
+- (void)setupData {
+    self.titles = @[@"首页", @"体育在线", @"科技日报", @"生活", @"本地", @"精彩视频", @"娱乐", @"时尚", @"房地产", @"经济"];
+
     self.titleView.selectedIndex = 2;
     self.contentView.currentIndex = 2;
+    
+    [self.titleView reloadData];
+    [self.contentView reloadData];
 }
-
 
 #pragma mark - LXSegmentTitleViewDelegate
 
@@ -78,6 +77,12 @@
        lastSelectedIndex:(NSInteger)lastSelectedIndex
 {
     self.contentView.currentIndex = selectedIndex;
+}
+
+#pragma mark - LXSegmentTitleViewDataSource
+
+- (NSArray *)segmentTitlesOfSegmentTitleView:(LXSegmentTitleView *)segmentView {
+    return self.titles;
 }
 
 
@@ -96,6 +101,25 @@
                              endIndex:(NSInteger)endIndex
 {
     self.titleView.selectedIndex = endIndex;
+}
+
+#pragma mark - LXScrollContentViewDataSource
+
+- (UIViewController *)parentVcInScrollContentView:(LXScrollContentView *)scrollContentView {
+    return self;
+}
+
+- (UIViewController *)scrollContentView:(LXScrollContentView *)scrollContentView childVcAtIndex:(NSInteger)index {
+    
+    NSString *title = self.titles[index];
+    LXTestViewController *vc = [[LXTestViewController alloc] init];
+    vc.category = title;
+    return vc;
+}
+
+- (NSInteger)numberOfchildVcsInScrollContentView:(LXScrollContentView *)scrollContentView {
+    
+    return self.titles.count;
 }
 
 @end
