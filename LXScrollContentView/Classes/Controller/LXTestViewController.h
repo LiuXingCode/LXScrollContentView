@@ -12,4 +12,6 @@
 
 @property (nonatomic, copy) NSString *category;
 
+@property (nonatomic, assign) NSUInteger index;
+
 @end

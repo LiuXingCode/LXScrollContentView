@@ -22,17 +22,17 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self initData];
+    [self setupData];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self initData];
+        [self setupData];
     }
     return self;
 }
 
-- (void)initData {
+- (void)setupData {
     self.titleNormalColor = [UIColor blackColor];
     self.titleSelectedColor = [UIColor redColor];
     self.selectedIndex = 0;

@@ -47,6 +47,8 @@
 
 @property (nonatomic, assign) NSInteger currentIndex;
 
+@property (nonatomic, assign) BOOL preloadNearVcs;//提前加载当前vc
+
 @property (nonatomic, weak, readonly) UICollectionView *collectionView;
 
 @end

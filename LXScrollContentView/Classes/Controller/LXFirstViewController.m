@@ -52,6 +52,7 @@
     [self.view addSubview:self.titleView];
     
     self.contentView = [[LXScrollContentView alloc] initWithFrame:CGRectZero];
+    self.contentView.preloadNearVcs = YES;
     self.contentView.delegate = self;
     self.contentView.dataSource = self;
     [self.view addSubview:self.contentView];
@@ -114,6 +115,7 @@
     NSString *title = self.titles[index];
     LXTestViewController *vc = [[LXTestViewController alloc] init];
     vc.category = title;
+    vc.index = index;
     return vc;
 }
 
