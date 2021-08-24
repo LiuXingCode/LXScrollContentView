@@ -36,59 +36,43 @@
 
 @property (nonatomic, weak) id<LXSegmentTitleViewDataSource> dataSource;
 
-/**
- 文字未选中颜色，默认black
- */
+/// 文字未选中颜色，默认black
 @property (nonatomic, strong) UIColor *titleNormalColor;
 
-/**
- 文字选中和下方滚动条颜色，默认red
- */
+/// 文字选中和下方滚动条颜色，默认red
 @property (nonatomic, strong) UIColor *titleSelectedColor;
 
 
-/**
- 第几个标题处于选中状态，默认第0个
- */
+/// 第几个标题处于选中状态，默认第0个
 @property (nonatomic, assign) NSInteger selectedIndex;
 
 
-/**
- 标题font，默认[UIFont systemFontOfSize:14.f]
- */
-@property (nonatomic, strong) UIFont *titleFont;
+/// 标题未选中font，默认[UIFont systemFontOfSize:14.f]
+@property (nonatomic, strong) UIFont *titleNormalFont;
 
 
-/**
- 下方指示条颜色，默认red
- */
+/// 标题选中font，默认[UIFont systemFontOfSize:16.f]
+@property (nonatomic, strong) UIFont *titleSelectedFont;
+
+
+/// 下方指示条颜色，默认red
 @property (nonatomic, strong) UIColor *indicatorColor;
 
-/**
- 下方滚动指示条高度，默认2.f
- */
+/// 下方滚动指示条高度，默认2.f
 @property (nonatomic, assign) CGFloat indicatorHeight;
 
 
-/**
- 下方指示条延伸宽度，默认5.f
- */
+/// 下方指示条延伸宽度，默认5.f
 @property (nonatomic, assign) CGFloat indicatorExtraW;
 
 
-/**
- 下方指示条距离底部距离，默认为0
- */
+/// 下方指示条距离底部距离，默认为0
 @property (nonatomic, assign) CGFloat indicatorBottomMargin;
 
-/**
- 每个item之间最小间隔，默认25.f
- */
+/// 每个item之间最小间隔，默认25.f
 @property (nonatomic, assign) CGFloat itemMinMargin;
 
-/**
- 选项卡标题数组
- */
+/// 选项卡标题数组
 @property (nonatomic, copy) NSArray<NSString *> *segmentTitles;
 
 @end
