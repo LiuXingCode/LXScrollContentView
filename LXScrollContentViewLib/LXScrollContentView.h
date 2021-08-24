@@ -12,6 +12,8 @@
 
 @protocol LXScrollContentViewDataSource <NSObject>
 
+- (UIEdgeInsets)scrollContentView:(LXScrollContentView *)scrollContentView childVcContentInsetAtIndex:(NSInteger)index;
+
 @required
 
 - (NSInteger)numberOfchildVcsInScrollContentView:(LXScrollContentView *)scrollContentView;
@@ -35,6 +37,10 @@
                            startIndex:(NSInteger)startIndex
                              endIndex:(NSInteger)endIndex;
 
+- (void)childVcViewWillAppearAtIndex:(NSUInteger)index;
+
+- (void)childVcViewDidDisappearAtIndex:(NSUInteger)index;
+
 @end
 
 @interface LXScrollContentView : UIView
@@ -45,7 +51,7 @@
 
 @property (nonatomic, weak) id<LXScrollContentViewDelegate> delegate;
 
-@property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, assign) NSUInteger currentIndex;
 
 @property (nonatomic, assign) BOOL preloadNearVcs;//提前加载当前vc
 

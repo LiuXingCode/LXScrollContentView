@@ -111,10 +111,16 @@ static NSString *kContentCellID = @"kContentCellID";
     forItemAtIndexPath:(NSIndexPath *)indexPath {
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     UIViewController *childVc = [self fetchChildVcAtIndex:indexPath.row];
-    if (!childVc.parentViewController) {
-        [self.parentVC addChildViewController:childVc];
+    if (childVc) {
+        if (!childVc.parentViewController) {
+            [self.parentVC addChildViewController:childVc];
+        }
+        [cell.contentView addSubview:childVc.view];
     }
-    [cell.contentView addSubview:childVc.view];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(childVcViewWillAppearAtIndex:)]) {
+        [self.delegate childVcViewWillAppearAtIndex:indexPath.row];
+    }
     
     if (!self.preloadNearVcs) return;
     [self preloadNearVcsAtIndex:indexPath.row];
@@ -123,7 +129,12 @@ static NSString *kContentCellID = @"kContentCellID";
 - (void)collectionView:(UICollectionView *)collectionView
   didEndDisplayingCell:(UICollectionViewCell *)cell
     forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(childVcViewDidDisappearAtIndex:)]) {
+        [self.delegate childVcViewDidDisappearAtIndex:indexPath.row];
+    }
     UIViewController *childVc = [self fetchChildVcAtIndex:indexPath.row];
+    if (childVc == nil) return;
+    
     if (childVc.parentViewController == self.parentVC) {
         [childVc removeFromParentViewController];
     }
@@ -168,12 +179,23 @@ static NSString *kContentCellID = @"kContentCellID";
     }
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self scrollViewDidEndScroll:scrollView];
+    }
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self scrollViewDidEndScroll:scrollView];
+}
+
+- (void)scrollViewDidEndScroll:(UIScrollView *)scrollView {
     if (scrollView != self.collectionView) return;
     
     CGFloat endOffsetX = scrollView.contentOffset.x;
     NSInteger startIndex = floor(_startOffsetX / scrollView.frame.size.width);
     NSInteger endIndex = floor(endOffsetX / scrollView.frame.size.width);
+    _currentIndex = endIndex;
     if (self.delegate && [self.delegate respondsToSelector:@selector(contentViewDidEndDecelerating:startIndex:endIndex:)]) {
         [self.delegate contentViewDidEndDecelerating:self startIndex:startIndex endIndex:endIndex];
     }
@@ -191,14 +213,21 @@ static NSString *kContentCellID = @"kContentCellID";
     }
     
     NSArray<UIViewController *> *childVcs = self.childVcDicts.allValues;
-    [childVcs makeObjectsPerformSelector:@selector(removeFromParentViewController)];
+    for (UIViewController *childVc in childVcs) {
+        if (childVc.parentViewController == self.parentVC) {
+            [childVc removeFromParentViewController];
+        }
+        if (childVc.view.superview) {
+            [childVc.view removeFromSuperview];
+        }
+    }
     [self.childVcDicts removeAllObjects];
     
     [self.collectionView reloadData];
 }
 
 
-- (void)setCurrentIndex:(NSInteger)currentIndex {
+- (void)setCurrentIndex:(NSUInteger)currentIndex {
     if (currentIndex < 0
         || currentIndex > self.childVcsCount - 1
         || self.childVcsCount <= 0) {
@@ -214,6 +243,11 @@ static NSString *kContentCellID = @"kContentCellID";
     });
 }
 
+- (void)setDataSource:(id<LXScrollContentViewDataSource>)dataSource {
+    _dataSource = dataSource;
+    [self reloadData];
+}
+
 #pragma mark - private methods
 
 - (UIViewController *)fetchChildVcAtIndex:(NSUInteger)index {
@@ -223,13 +257,23 @@ static NSString *kContentCellID = @"kContentCellID";
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(scrollContentView:childVcAtIndex:)]) {
         childVc = [self.dataSource scrollContentView:self childVcAtIndex:index];
         if (childVc) {
-            childVc.view.frame = self.bounds;
+            childVc.view.frame = [self childVcFrameAtIndex:index];
             self.childVcDicts[@(index)] = childVc;
             return childVc;
         }
     }
-    @throw [NSException exceptionWithName:@"请设置正确childVc" reason:[NSString stringWithFormat:@"index:%ld的childVc为nil", index] userInfo:nil];
     return nil;
+}
+
+- (CGRect)childVcFrameAtIndex:(NSUInteger)index {
+    CGRect frame = self.bounds;
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(scrollContentView:childVcContentInsetAtIndex:)]) {
+        UIEdgeInsets inset = [self.dataSource scrollContentView:self childVcContentInsetAtIndex:index];
+        CGFloat weight = MAX(0, self.bounds.size.width - inset.left - inset.right);
+        CGFloat height = MAX(0, self.bounds.size.height - inset.top - inset.bottom);
+        frame = CGRectMake(inset.left, inset.top, weight, height);
+    }
+    return frame;
 }
 
 - (void)preloadNearVcsAtIndex:(NSUInteger)index {
